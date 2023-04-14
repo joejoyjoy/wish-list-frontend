@@ -24,9 +24,17 @@ export const GridItems = styled.div`
 `;
 
 export const GridDoneItems = styled(GridItems)`
-div {
-background-color: ${({ theme }) => theme.colorPrimary};
-}
+  div {
+    background-color: ${({ theme }) => theme.colorPrimary};
+
+    & .date {
+      color: ${({ theme }) => theme.textColorSecondaryGreen};
+    }
+
+    & .desc {
+      color: ${({ theme }) => theme.textColorSecondaryGreen};
+    }
+  }
 `;
 
 export const StickyNote = styled.div`
@@ -45,7 +53,7 @@ export const StickyNote = styled.div`
   & .date {
     color: ${({ theme }) => theme.textColorSecondary};
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 10px;
     display: block;
   }
@@ -53,7 +61,7 @@ export const StickyNote = styled.div`
   & .desc {
     color: ${({ theme }) => theme.textColorSecondary};
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     display: block;
   }
 `;

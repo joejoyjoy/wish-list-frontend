@@ -10,5 +10,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={Theme}>
       <App />
     </ThemeProvider>
-  </BrowserRouter>,
+  </BrowserRouter>
 )
