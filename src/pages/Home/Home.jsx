@@ -4,12 +4,12 @@ import HomeHeader from './Header/Header'
 import HomeMain from './Main/Main'
 
 function Home() {
-    return (
-        <Container>
-            <HomeHeader />
-            <HomeMain />
-        </Container>
-    )
+  return (
+    <Container>
+      <HomeHeader />
+      <HomeMain />
+    </Container>
+  )
 }
 
 export default Home
