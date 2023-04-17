@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import '@atlaskit/css-reset';
+import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import initialData from './initial-data';
@@ -49,6 +48,7 @@ class App extends React.Component {
       };
 
       this.setState(newState);
+
       return;
     }
 
@@ -96,4 +96,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <App />
+)
