@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = initialData;
 
   onDragEnd = result => {
@@ -95,7 +95,3 @@ class App extends React.Component {
     );
   }
 }
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <App />
-)
