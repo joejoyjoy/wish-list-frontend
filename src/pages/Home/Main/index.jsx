@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
-import initialData from './initial-data';
-import Column from './column';
+import initialData from '../../../db/initial-data';
+import Column from '../../../components/column';
 
 const Container = styled.div`
   display: flex;
