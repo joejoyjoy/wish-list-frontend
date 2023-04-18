@@ -11,23 +11,23 @@ const Container = styled.div`
   background-color: ${props => (props.isDragging ? '#CFFF47' : 'antiquewhite')};
 `;
 
-export default class Task extends React.Component {
-  render() {
-    return (
-      <Draggable draggableId={this.props.task.id} index={this.props.index}>
-        {(provided, snapshot) => (
-          <Container
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            <Title>{this.props.task.title}</Title>
-            <Date>{this.props.task.date}</Date>
-            <Desc>{this.props.task.desc}</Desc>
-          </Container>
-        )}
-      </Draggable>
-    );
-  }
+const Task = ({ task, index }) => {
+  return (
+    <Draggable draggableId={task.id} index={index}>
+      {(provided, snapshot) => (
+        <Container
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
+        >
+          <Title>{task.title}</Title>
+          <Date>{task.date}</Date>
+          <Desc>{task.desc}</Desc>
+        </Container>
+      )}
+    </Draggable>
+  );
 }
+
+export default Task;

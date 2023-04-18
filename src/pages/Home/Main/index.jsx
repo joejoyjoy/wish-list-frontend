@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import initialData from '../../../db/initial-data';
 import Column from '../../../components/column';
 import { Container } from '../../../ui/DragDropContext.styled'
 
-export default class App extends React.Component {
-  state = initialData;
+const App = () => {
+  const [database, setDatabase] = useState(initialData)
 
-  onDragEnd = result => {
+  const onDragEnd = result => {
     const { destination, source, draggableId } = result;
 
     if (!destination) {
@@ -21,8 +21,8 @@ export default class App extends React.Component {
       return;
     }
 
-    const start = this.state.columns[source.droppableId];
-    const finish = this.state.columns[destination.droppableId];
+    const start = database.columns[source.droppableId];
+    const finish = database.columns[destination.droppableId];
 
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
@@ -35,15 +35,14 @@ export default class App extends React.Component {
       };
 
       const newState = {
-        ...this.state,
+        ...database,
         columns: {
-          ...this.state.columns,
+          ...database.columns,
           [newColumn.id]: newColumn,
         },
       };
 
-      this.setState(newState);
-
+      setDatabase(newState);
       return;
     }
 
@@ -63,51 +62,29 @@ export default class App extends React.Component {
     };
 
     const newState = {
-      ...this.state,
+      ...database,
       columns: {
-        ...this.state.columns,
+        ...database.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
     };
-    this.setState(newState);
+    setDatabase(newState);
   };
 
-  render() {
-    return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Container>
-          {this.state.columnOrder.map(columnId => {
-            const column = this.state.columns[columnId];
-            const tasks = column.taskIds.map(
-              taskId => this.state.tasks[taskId],
-            );
-
-            return <Column key={column.id} column={column} tasks={tasks} />;
-          })}
-        </Container>
-      </DragDropContext>
-    );
-  }
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Container>
+        {database.columnOrder.map(columnId => {
+          const column = database.columns[columnId];
+          const tasks = column.taskIds.map(
+            taskId => database.tasks[taskId],
+          );
+          return <Column key={column.id} column={column} tasks={tasks} />;
+        })}
+      </Container>
+    </DragDropContext>
+  );
 }
 
-/*
-<GridItems>
-    <h2>All tasks</h2>
-    <Item />
-    <Item />
-    <Item />
-  </GridItems>
-  <GridItems>
-    <h2>To do</h2>
-    <Item />
-    <Item />
-  </GridItems>
-  <GridDoneItems>
-    <h2>Done</h2>
-    <Item />
-    <Item />
-    <Item />
-    <Item />
-  </GridDoneItems>
-*/
+export default App;

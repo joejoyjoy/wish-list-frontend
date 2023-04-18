@@ -3,7 +3,7 @@ import { Container } from '../../ui/Container.styled'
 import HomeHeader from './Header/Header'
 import HomeMain from './Main/Main'
 
-function Home() {
+const Home = () => {
   return (
     <Container>
       <HomeHeader />

@@ -6,7 +6,7 @@ import { SectionHeader } from '../../../ui/SectionHeader.styled'
 import { Button, AddButton } from '../../../ui/Button'
 import { IoIosLogOut, IoMdAdd } from "react-icons/io"
 
-function HomeHeader() {
+const HomeHeader = () => {
   return (
     <Header>
       <SectionProfile>

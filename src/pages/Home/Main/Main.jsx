@@ -2,7 +2,7 @@ import React from 'react'
 import App from './index'
 import { Main } from '../../../ui/Main.styled'
 
-function HomeMain() {
+const HomeMain = () => {
   return (
     <Main>
       <App />
