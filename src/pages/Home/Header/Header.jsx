@@ -23,7 +23,7 @@ const HomeHeader = () => {
       </SectionProfile>
       <SectionHeader>
         <HeaderH1>Sticky Notes</HeaderH1>
-        <AddButton><IoMdAdd /></AddButton>
+          <AddButton><IoMdAdd /></AddButton>
       </SectionHeader>
     </Header>
   )

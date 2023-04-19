@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 import Task from './task';
+import TaskConfigure from './taskConfigure';
 import { Container, Title } from '../ui/Column.styled'
 
 const TaskList = styled.div`
@@ -16,14 +17,16 @@ const TaskList = styled.div`
 const Column = ({ column, tasks }) => {
   return (
     <Container>
+      
       <Title># {column.title}</Title>
       <Droppable droppableId={column.id}>
-        {(provided, snapshot) => (
+        {(provided, snapshot, id) => (
           <TaskList
             ref={provided.innerRef}
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
+            {column.id == 'column-1' ? <TaskConfigure/> : null}
             {tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
             ))}
