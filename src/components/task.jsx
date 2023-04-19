@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
+import { sidebarContext } from '../context/sidebarContext';
 import { Title, Date, Desc } from '../ui/TaskComponent.styled'
 
 const Container = styled.div`
@@ -12,6 +13,8 @@ const Container = styled.div`
 `;
 
 const Task = ({ task, index }) => {
+  const { toggleSidebar } = useContext(sidebarContext);
+
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -21,9 +24,9 @@ const Task = ({ task, index }) => {
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          <Title>{task.title}</Title>
-          <Date>{task.date}</Date>
-          <Desc>{task.desc}</Desc>
+          <Title onClick={toggleSidebar}>{task.title}</Title>
+          <Date onClick={toggleSidebar}>{task.date}</Date>
+          <Desc onClick={toggleSidebar}>{task.desc}</Desc>
         </Container>
       )}
     </Draggable>

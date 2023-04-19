@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@auth0/auth0-react'
-import { GlobalStyle } from './ui/GlobalStyles'
+import SidebarContextProvider from './context/sidebarContext'
 import { Home } from './pages'
+import { GlobalStyle } from './ui/GlobalStyles'
 
 export const App = () => {
   return (
@@ -11,7 +12,9 @@ export const App = () => {
         authorizationParams={{ redirect_uri: window.location.origin }}
         audience={import.meta.env.VITE_REACT_APP_AUTH0_AUDIENCE}
       >
-        <Home />
+        <SidebarContextProvider>
+          <Home />
+        </SidebarContextProvider>
       </Auth0Provider>
       <GlobalStyle />
     </div>
