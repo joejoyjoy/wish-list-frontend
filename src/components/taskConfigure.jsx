@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { TaskContext } from '../context/TasksProvider';
+import useTask from '../hooks/useTask';
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import { Section, Title, Date, Desc } from '../ui/TaskConfigComponent.styled'
@@ -15,14 +17,18 @@ const Form = styled.form`
 
 const TaskConfigure = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
+  const { addTask, getTaskOfUser } = useTask()
+  const { setTasks} = useContext(TaskContext)
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await addTask(data)
+    const tasks = await getTaskOfUser()
+    setTasks(tasks)
     reset()
   }
 
   register("taskTitle", { value: "This is the tasks config title" })
-  register("taskDesc", { value: "Take out the garbage" })
+  register("taskDesc", { value: "Take out the garbage It getting far" })
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
