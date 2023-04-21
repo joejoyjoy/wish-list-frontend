@@ -19,6 +19,7 @@ const TaskList = () => {
           return (
             <div key={task._id}>
               <h2>{task.taskTitle}</h2>
+              <h2>{task.taskDate}</h2>
               <p>{task.taskDesc}</p>
             </div>
           )

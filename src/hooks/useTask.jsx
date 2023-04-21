@@ -5,7 +5,7 @@ const useTask = () => {
 
 
 
-  const addTask = async ({ taskTitle, taskDesc }) => {
+  const addTask = async ({ taskTitle, taskDate, taskDesc }) => {
     const userID = window.localStorage.getItem("userID")
     if (!userID) return console.error("You are not logged in");
 
@@ -15,7 +15,7 @@ const useTask = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ taskTitle, taskDesc })
+        body: JSON.stringify({ taskTitle, taskDate, taskDesc })
       })
 
       const data = await response.json()

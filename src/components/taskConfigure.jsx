@@ -18,7 +18,9 @@ const Form = styled.form`
 const TaskConfigure = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const { addTask, getTaskOfUser } = useTask()
-  const { setTasks} = useContext(TaskContext)
+  const { setTasks } = useContext(TaskContext)
+
+  const today = new window.Date().toLocaleDateString('en-En', { year: 'numeric', month: 'long', day: 'numeric' })
 
   const onSubmit = async (data) => {
     await addTask(data)
@@ -28,6 +30,7 @@ const TaskConfigure = () => {
   }
 
   register("taskTitle", { value: "This is the tasks config title" })
+  register("taskDate", {value: today })
   register("taskDesc", { value: "Take out the garbage It getting far" })
 
   return (
@@ -38,7 +41,8 @@ const TaskConfigure = () => {
           <MdDone size="20px" />
         </Button>
       </Section>
-      <Date>4th Jan 2023</Date>
+      <Date>{today}</Date>
+      <input {...register("taskDate")} type="hidden" />
       <Desc type="text" placeholder="Add a description" {...register("taskDesc", { required: true })} ></Desc>
       {(errors.taskDesc || errors.taskTitle) && <span>This field is required</span>}
     </Form>
