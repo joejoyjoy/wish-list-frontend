@@ -14,14 +14,16 @@ const TaskList = () => {
 
   return (
     <div>
-      {tasks.map(task => {
-        return (
-          <div key={task._id}>
-            <h2>{task.taskTitle}</h2>
-            <p>{task.taskDesc}</p>
-          </div>
-        )
-      })}
+      {tasks ?
+        tasks.map(task => {
+          return (
+            <div key={task._id}>
+              <h2>{task.taskTitle}</h2>
+              <p>{task.taskDesc}</p>
+            </div>
+          )
+        }) :
+        <div></div>}
     </div>
   )
 }

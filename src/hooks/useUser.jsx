@@ -3,8 +3,13 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 const useUser = () => {
   const { user } = useAuth0()
+  console.log(user)
 
   const checkUser = async () => {
+    if (!user) {
+      return window.localStorage.removeItem("userID");
+    }
+
     try {
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/user/check`, {
         method: 'POST',
