@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { TaskContext } from '../context/TasksProvider'
+import { sidebarContext } from '../context/sidebarContext'
 
 const useTask = () => {
   const { VITE_REACT_APP_SERVER_URL } = import.meta.env
   const { tasks, setTasks } = useContext(TaskContext)
+  const { toggleSidebar } = useContext(sidebarContext);
 
   const addTask = async ({ taskTitle, taskDate, taskDesc, taskState }) => {
     const userID = window.localStorage.getItem("userID")
@@ -55,8 +57,27 @@ const useTask = () => {
 
       const data = await response.json()
 
-      let newArray = tasks.map(task => task._id == data._id ? {...task, taskState: data.taskState} : task);
+      let newArray = tasks.map(task => task._id == data._id ? { ...task, taskState: data.taskState } : task);
       setTasks(newArray)
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const deleteTask = async (taskID) => {
+
+    try {
+      const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/delete/${taskID}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const data = await response.json()
+      setTasks(oldValues => { return oldValues.filter(task => task._id !== data._id) })
+      toggleSidebar()
 
     } catch (error) {
       console.error(error);
@@ -66,7 +87,8 @@ const useTask = () => {
   return {
     addTask,
     getTaskOfUser,
-    changeTaskState
+    changeTaskState,
+    deleteTask
   };
 }
 

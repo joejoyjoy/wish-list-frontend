@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import useTask from '../../hooks/useTask';
 import styled from 'styled-components';
 import GrayProfile from '../../assets/jpg/person-profile-gray.jpg'
 import { useAuth0 } from '@auth0/auth0-react';
@@ -99,8 +100,13 @@ export const ProfileDetails = styled.div`
 
 const Sidebar = () => {
   const { user } = useAuth0()
+  const { deleteTask } = useTask()
   const { sidebar, toggleSidebar, sidebarData } = useContext(sidebarContext);
   const { tasks, setTasks } = useContext(TaskContext)
+
+  const onDelete = async (id) => {
+    await deleteTask(id)
+  }
 
   return (
     <Container className={sidebar ? "sidebar--open" : ""}>
@@ -120,22 +126,22 @@ const Sidebar = () => {
         </Header>
         <Body>
           {tasks ? tasks
-              .filter(task => task._id == sidebarData)
-              .map(item => (
-                <div key={item._id}>
-                  <ProfileDetails>
-                    <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
-                    <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
-                  </ProfileDetails>
-                  <a>{item.taskDesc}</a>
-                </div>
-              ))
-          : null}
+            .filter(task => task._id == sidebarData)
+            .map(item => (
+              <div key={item._id}>
+                <ProfileDetails>
+                  <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
+                  <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
+                </ProfileDetails>
+                <a>{item.taskDesc}</a>
+              </div>
+            ))
+            : null}
         </Body>
       </div>
       <Footer className="sidebar-container margin-top-0">
         <div className="sidebar-container-flex">
-          <DeleteButton className="sidebar-btn-continue pointer" onClick={toggleSidebar}>DELETE TASK</DeleteButton>
+          <DeleteButton className="sidebar-btn-continue pointer" onClick={() => onDelete(sidebarData)}>DELETE TASK</DeleteButton>
         </div>
       </Footer>
 

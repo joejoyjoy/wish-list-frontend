@@ -64,7 +64,7 @@ const Column = () => {
             </TaskContainer>
           )) : null}
         {tasks ?
-          tasks.length == 0 ?
+          tasks.length == 0 && creatingTasks == false ?
             <NoTasks>
               There are no tasks yet!<br />
               Add one by the + button
