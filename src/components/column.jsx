@@ -33,7 +33,6 @@ const Column = () => {
   const { toggleSidebar } = useContext(sidebarContext);
   const { tasks, setTasks, creatingTasks } = useContext(TaskContext)
   const { getTaskOfUser, changeTaskState } = useTask()
-  console.log(tasks);
 
   const handleOnClick = (taskID, taskCurrentState) => {
     changeTaskState(taskID, !taskCurrentState)
@@ -64,12 +63,14 @@ const Column = () => {
 
             </TaskContainer>
           )) : null}
-        {tasks.length == 0 ?
-          <NoTasks>
-            There are no tasks yet!<br />
-            Add one by the + button
-          </NoTasks>
-          : null}
+        {tasks ?
+          tasks.length == 0 ?
+            <NoTasks>
+              There are no tasks yet!<br />
+              Add one by the + button
+            </NoTasks>
+            : null
+        :null}
       </TaskList>
     </Container>
   );
