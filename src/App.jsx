@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@auth0/auth0-react'
-import SidebarContextProvider from './context/sidebarContext'
+import DataBaseProvider from './context/DataBaseProvider'
 import TasksProvider from './context/TasksProvider'
+import SidebarContextProvider from './context/sidebarContext'
 import { Home } from './pages'
 import { GlobalStyle } from './ui/GlobalStyles'
 
@@ -13,11 +14,13 @@ export const App = () => {
         authorizationParams={{ redirect_uri: window.location.origin }}
         audience={import.meta.env.VITE_REACT_APP_AUTH0_AUDIENCE}
       >
-        <TasksProvider>
-          <SidebarContextProvider>
-            <Home />
-          </SidebarContextProvider>
-        </TasksProvider>
+        <DataBaseProvider>
+          <TasksProvider>
+            <SidebarContextProvider>
+              <Home />
+            </SidebarContextProvider>
+          </TasksProvider>
+        </DataBaseProvider>
       </Auth0Provider>
       <GlobalStyle />
     </div>

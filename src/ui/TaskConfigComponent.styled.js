@@ -37,7 +37,7 @@ export const Date = styled.span`
 export const Desc = styled.textarea`
   resize: vertical;
   width: calc(100% - 6px);
-  height: 80px;
+  min-height: 80px;
   color: ${({ theme }) => theme.textColorPrimary};
   font-weight: 500;
   font-size: 14px;
@@ -46,4 +46,9 @@ export const Desc = styled.textarea`
   outline: none;
   border: 0;
   border-bottom: 1px solid #767676;
+`;
+
+export const Error = styled.span`
+  color: ${({ theme }) => theme.textColorError};
+  font-weight: 600;
 `;

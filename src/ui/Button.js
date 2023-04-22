@@ -13,11 +13,12 @@ export const Button = styled.button`
 export const AddButton = styled(Button)`
   border: 1px solid ${({ theme }) => theme.colorSecondary};
   border-radius: 10px;
-  padding: 10px;
+  font-size: 26px;
+  padding: 4px 12px;
   transition: all 0.4s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.backgroundColorDark};
+    background-color: ${({ theme }) => theme.backgroundColorLightDark};
   }
 `;
 
@@ -36,5 +37,23 @@ export const EditButton = styled(Button)`
   &:hover {
     background-color: rgb(48, 54, 61);
     border-color: rgb(139, 148, 158);
+  }
+`;
+
+export const DeleteButton = styled(Button)`
+  gap: 4px;
+  height: 43px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #f85149;
+  border: 1px solid #f8514966;
+  border-radius: 6px;
+  background-color: #f851491a;
+  transition: all 0.4s;
+
+  &:hover {
+    background-color: #cc2c2447;
+    border-color: #f85149bf;
   }
 `;

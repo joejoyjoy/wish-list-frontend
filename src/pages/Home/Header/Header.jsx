@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TaskContext } from '../../../context/TasksProvider'
 import { useAuth0 } from '@auth0/auth0-react'
 import { LoginButton } from '../../../components/LoginButton'
 import { LogoutButton } from '../../../components/LogoutButton'
@@ -7,10 +8,14 @@ import { Header, HeaderH1 } from '../../../ui/Header.styled'
 import { SectionProfile, ProfileDetails } from '../../../ui/SectionProfile.styled'
 import { SectionHeader } from '../../../ui/SectionHeader.styled'
 import { AddButton } from '../../../ui/Button'
-import { IoMdAdd } from "react-icons/io"
 
 const HomeHeader = () => {
   const { user } = useAuth0()
+  const { setCreatingTasks } = useContext(TaskContext)
+
+  const handleClick = () => {
+    setCreatingTasks(true)
+  }
 
   return (
     <Header>
@@ -22,8 +27,8 @@ const HomeHeader = () => {
         {user ? <LogoutButton /> : <LoginButton />}
       </SectionProfile>
       <SectionHeader>
-        <HeaderH1>Sticky Notes</HeaderH1>
-          <AddButton><IoMdAdd /></AddButton>
+        <HeaderH1>Task system</HeaderH1>
+        <AddButton onClick={handleClick} id="addTask" > + </AddButton>
       </SectionHeader>
     </Header>
   )

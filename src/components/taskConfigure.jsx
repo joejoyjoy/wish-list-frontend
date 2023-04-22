@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import { TaskContext } from '../context/TasksProvider';
 import useTask from '../hooks/useTask';
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
-import { Section, Title, Date, Desc } from '../ui/TaskConfigComponent.styled'
+import { Section, Title, Date, Desc, Error } from '../ui/TaskConfigComponent.styled'
 import { Button } from '../ui/Button'
 import { MdDone } from "react-icons/md";
 
@@ -18,7 +18,7 @@ const Form = styled.form`
 const TaskConfigure = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const { addTask, getTaskOfUser } = useTask()
-  const { setTasks } = useContext(TaskContext)
+  const { setTasks, setCreatingTasks } = useContext(TaskContext)
 
   const today = new window.Date().toLocaleDateString('en-En', { year: 'numeric', month: 'long', day: 'numeric' })
 
@@ -26,15 +26,34 @@ const TaskConfigure = () => {
     await addTask(data)
     const tasks = await getTaskOfUser()
     setTasks(tasks)
+    setCreatingTasks(false)
     reset()
   }
 
-  register("taskTitle", { value: "This is the tasks config title" })
-  register("taskDate", {value: today })
-  register("taskDesc", { value: "Take out the garbage It getting far" })
+  let popperRef = useRef();
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.target.id !== "addTask" && !popperRef.current.contains(e.target)) {
+        setCreatingTasks(false)
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    }
+
+  }, []);
+
+  register("taskTitle")
+  register("taskDate", { value: today })
+  register("taskDesc")
+  register("taskState", { value: false })
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} ref={popperRef}>
       <Section>
         <Title type="text" placeholder="Add a title" {...register("taskTitle", { required: true })} />
         <Button type="submit">
@@ -43,8 +62,9 @@ const TaskConfigure = () => {
       </Section>
       <Date>{today}</Date>
       <input {...register("taskDate")} type="hidden" />
+      <input {...register("taskState")} type="hidden" />
       <Desc type="text" placeholder="Add a description" {...register("taskDesc", { required: true })} ></Desc>
-      {(errors.taskDesc || errors.taskTitle) && <span>This field is required</span>}
+      {(errors.taskDesc || errors.taskTitle) && <Error>This field is required</Error>}
     </Form>
   );
 }

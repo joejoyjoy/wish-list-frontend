@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   display: block;
+  width: 100%;
 `;
 
 export const Title = styled.h3`

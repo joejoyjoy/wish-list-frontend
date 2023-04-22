@@ -6,6 +6,8 @@ export const Theme = {
   textColorPrimary: '#050505',
   textColorSecondary: '#7B7B7B',
   textColorSecondaryGreen: '#94B92A',
+  textColorError: '#ff3333',
 
-  backgroundColorDark: '#363636',
+  backgroundColorLightDark: '#363636',
+  backgroundColorDark: '#181818',
 }
