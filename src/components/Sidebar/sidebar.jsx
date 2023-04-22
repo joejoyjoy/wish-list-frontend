@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import useTask from '../../hooks/useTask';
-import styled from 'styled-components';
-import GrayProfile from '../../assets/jpg/person-profile-gray.jpg'
+import React, { useState, useContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button, EditButton, DeleteButton } from '../../ui/Button';
-import { sidebarContext } from '../../context/sidebarContext';
+import useTask from '../../hooks/useTask';
 import { TaskContext } from '../../context/TasksProvider';
+import { sidebarContext } from '../../context/sidebarContext';
+import GrayProfile from '../../assets/jpg/person-profile-gray.jpg'
+import styled from 'styled-components';
+import { Button, EditButton, DeleteButton, SaveButton } from '../../ui/Button';
 import { TfiClose } from "react-icons/tfi";
 
 const Container = styled.div`
@@ -40,16 +40,27 @@ const Header = styled.header`
   border-top-left-radius: 12px;
   background-color: #0d1117;
 
-  & h4 {
-    margin: 0;
-    margin-right: 20px;
-    font-size: 24px;
+  & input {
+    width: calc(100% - 130px);
+    padding: 6px;
+    background: none;
+    border: 0;
+    font-size: 19px;
     font-weight: 600;
+    border: 1px solid #f0f6fc19;
+    border-radius: 6px;
+    outline: none;
+    transition: all .2s ease-out;
 
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    &:focus {
+      border: 1px solid #2f81f7;
+      box-shadow: #2f81f7 0px 0px 0px 1px inset;
+    }
+
+    &:disabled {
+      border: 1px solid transparent;
+      box-shadow: none;
+    }
   }
 
   & div {
@@ -72,13 +83,42 @@ const Body = styled.div`
   padding: 30px;
   border-bottom: 1px solid #21262d;
   background-color: #0d1117;
+
+  & textarea {
+    width: calc(100% - 25px);
+    padding: 10px;
+    background: none;
+    resize: vertical;
+    min-height: 120px;
+    border: 1px solid #f0f6fc19;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: box-shadow .2s ease-out;
+
+    &:focus {
+      border: 1px solid #2f81f7;
+      box-shadow: #2f81f7 0px 0px 0px 1px inset;
+    }
+
+    &:disabled {
+      border: 1px solid transparent;
+      box-shadow: none;
+    }
+  }
 `;
 
 const Footer = styled.section`
   padding: 30px;
   background-color: #161b22;
-  & button {
-    float: right;
+  border-bottom-left-radius: 12px;
+
+  & div {
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+
   }
 `;
 
@@ -100,48 +140,95 @@ export const ProfileDetails = styled.div`
 
 const Sidebar = () => {
   const { user } = useAuth0()
-  const { deleteTask } = useTask()
+  const { deleteTask, changeTaskValue } = useTask()
   const { sidebar, toggleSidebar, sidebarData } = useContext(sidebarContext);
-  const { tasks, setTasks } = useContext(TaskContext)
+  const { tasks, setTasks, editingTasks, setEditingTasks } = useContext(TaskContext)
 
   const onDelete = async (id) => {
     await deleteTask(id)
   }
 
+  const handleClick = () => {
+    setEditingTasks((prevState) => !prevState)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const taskIdChanged = e.target[2].value;
+    const taskTitleChanged = e.target[0].value;
+    const taskDescChanged = e.target[1].value;
+    changeTaskValue(taskIdChanged, taskTitleChanged, taskDescChanged)
+  }
+
   return (
     <Container className={sidebar ? "sidebar--open" : ""}>
-      <div>
-        <Header>
-          {tasks ? tasks.filter(task => task._id == sidebarData).map(item => (
-            <h4 key={item._id}>{item.taskTitle}</h4>
-          )) : null}
-          <div>
-            <EditButton>
-              Edit
-            </EditButton>
-            <Button>
-              <TfiClose className="icon pointer" size="1.7rem" onClick={toggleSidebar} />
-            </Button>
-          </div>
-        </Header>
-        <Body>
-          {tasks ? tasks
+      {tasks ?
+        <div>
+          <Header>
+            {tasks.filter(task => task._id == sidebarData).map(item => (
+              editingTasks ?
+                <input
+                  form="changeTaskForm"
+                  key={item._id}
+                  type="text"
+                  placeholder="Add a title"
+                  defaultValue={item.taskTitle}
+                ></input>
+                : <input
+                  key={item._id}
+                  type="text"
+                  placeholder="Add a title"
+                  defaultValue={item.taskTitle}
+                  disabled
+                ></input>
+            ))}
+            <div>
+              <EditButton
+                onClick={handleClick}
+                editBtnBackground={editingTasks ? "#238636" : "#21262d"}
+                editBtnHover={editingTasks ? "#2ea043" : "#30363d"}
+                editBtnBorder={editingTasks ? "0" : "1px solid #f0f6fc19"}
+              >
+                {editingTasks ? "Done" : "Edit"}
+              </EditButton>
+              <Button>
+                <TfiClose className="icon pointer" size="1.7rem" onClick={toggleSidebar} />
+              </Button>
+            </div>
+          </Header>
+          {tasks
             .filter(task => task._id == sidebarData)
             .map(item => (
-              <div key={item._id}>
+              <Body key={item._id}>
                 <ProfileDetails>
                   <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
                   <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
                 </ProfileDetails>
-                <a>{item.taskDesc}</a>
-              </div>
-            ))
-            : null}
-        </Body>
-      </div>
-      <Footer className="sidebar-container margin-top-0">
-        <div className="sidebar-container-flex">
-          <DeleteButton className="sidebar-btn-continue pointer" onClick={() => onDelete(sidebarData)}>DELETE TASK</DeleteButton>
+                {editingTasks ?
+                  <>
+                    <textarea form="changeTaskForm" defaultValue={item.taskDesc} />
+                    <input form="changeTaskForm" type="hidden" value={item._id}/>
+                  </>
+                  : <textarea disabled defaultValue={item.taskDesc} />}
+              </Body>
+            ))}
+        </div>
+        : null}
+      <Footer>
+        <div>
+          <DeleteButton onClick={() => onDelete(sidebarData)}>DELETE TASK</DeleteButton>
+          <form onSubmit={handleSubmit} id="changeTaskForm">
+            <SaveButton
+              form="changeTaskForm"
+              type={editingTasks ? "submit" : "text"}
+              saveBtnBackground={editingTasks ? "#11521e7a" : "#21262d"}
+              saveBtnBorder={editingTasks ? "#00a11e" : "#f0f6fc19"}
+              saveBtnBackgroundHover={editingTasks ? "#11521eb5" : "#21262d"}
+              saveBtnBorderHover={editingTasks ? "#13bd35" : "#f0f6fc19"}
+            >
+              SAVE CHANGES
+            </SaveButton>
+          </form>
         </div>
       </Footer>
 

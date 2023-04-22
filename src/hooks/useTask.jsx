@@ -84,11 +84,41 @@ const useTask = () => {
     }
   }
 
+  const changeTaskValue = async (taskID, taskTitle, taskDesc) => {
+
+    try {
+      const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/change/${taskID}`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          taskTitle: taskTitle,
+          taskDesc: taskDesc,
+        })
+      })
+
+      const data = await response.json()
+
+      let newArray = tasks.map(task => task._id == data._id ? {
+        ...task,
+        taskTitle: data.taskTitle,
+        taskDesc: data.taskDesc,
+      } : task);
+
+      setTasks(newArray)
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return {
     addTask,
     getTaskOfUser,
     changeTaskState,
-    deleteTask
+    deleteTask,
+    changeTaskValue
   };
 }
 

@@ -28,14 +28,14 @@ export const EditButton = styled(Button)`
   gap: 4px;
   font-size: 12px;
   color: rgb(201, 209, 217);
-  background-color: rgb(33, 38, 45);
-  border: 1px solid rgba(240, 246, 252, 0.1);
+  background-color: ${props => props.editBtnBackground};
+  border: ${props => props.editBtnBorder};
   border-radius: 6px;
   padding: 10px;
   transition: all 0.4s;
 
   &:hover {
-    background-color: rgb(48, 54, 61);
+    background-color: ${props => props.editBtnHover};
     border-color: rgb(139, 148, 158);
   }
 `;
@@ -55,5 +55,23 @@ export const DeleteButton = styled(Button)`
   &:hover {
     background-color: #cc2c2447;
     border-color: #f85149bf;
+  }
+`;
+
+export const SaveButton = styled(Button)`
+  gap: 4px;
+  height: 43px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  border: 1px solid ${props => props.saveBtnBorder};
+  border-radius: 6px;
+  background-color: ${props => props.saveBtnBackground};
+  transition: all 0.4s;
+
+  &:hover {
+    background-color: ${props => props.saveBtnBackgroundHover};
+    border-color: ${props => props.saveBtnBorderHover};
   }
 `;
