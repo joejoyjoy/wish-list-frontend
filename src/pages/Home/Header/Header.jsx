@@ -1,13 +1,11 @@
 import React, { useContext } from 'react'
-import { TaskContext } from '../../../context/TasksProvider'
 import { useAuth0 } from '@auth0/auth0-react'
+import { TaskContext } from '../../../context/TasksProvider'
 import { LoginButton } from '../../../components/LoginButton'
 import { LogoutButton } from '../../../components/LogoutButton'
 import GrayProfile from '../../../assets/jpg/person-profile-gray.jpg'
-import { Header, HeaderH1 } from '../../../ui/Header.styled'
-import { SectionProfile, ProfileDetails } from '../../../ui/SectionProfile.styled'
-import { SectionHeader } from '../../../ui/SectionHeader.styled'
 import { AddButton } from '../../../ui/Button'
+import { Header, HeaderH1, SectionProfile, ProfileDetails, SectionHeader } from '../../../ui/Header.styled'
 
 const HomeHeader = () => {
   const { user } = useAuth0()

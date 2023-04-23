@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { TaskContext } from '../context/TasksProvider'
 import { sidebarContext } from '../context/sidebarContext'
 
@@ -12,15 +12,13 @@ const useTask = () => {
     if (!userID) return console.error("addTask: You are not logged in");
 
     try {
-      const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/create/${userID}`, {
+      await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/create/${userID}`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ taskTitle, taskDate, taskDesc, taskState })
       })
-
-      const data = await response.json()
 
     } catch (error) {
       console.error(error);
@@ -43,7 +41,6 @@ const useTask = () => {
   }
 
   const changeTaskState = async (taskID, taskCurrentState) => {
-
     try {
       const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/patch/${taskID}`, {
         method: "PATCH",
@@ -66,7 +63,6 @@ const useTask = () => {
   }
 
   const deleteTask = async (taskID) => {
-
     try {
       const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/delete/${taskID}`, {
         method: "DELETE",
@@ -85,7 +81,6 @@ const useTask = () => {
   }
 
   const changeTaskValue = async (taskID, taskTitle, taskDesc) => {
-
     try {
       const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/change/${taskID}`, {
         method: "PATCH",

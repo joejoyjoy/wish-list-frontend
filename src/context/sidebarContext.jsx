@@ -3,8 +3,6 @@ import React, { useState, createContext } from "react";
 export const sidebarContext = createContext()
 
 function sidebarContextProvider(props) {
-
-  // Side bar shopping card open/close
   const [sidebar, setSidebar] = useState(false);
   const [sidebarData, setSidebarData] = useState("");
 

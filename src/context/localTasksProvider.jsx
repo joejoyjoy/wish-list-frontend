@@ -9,7 +9,6 @@ const listFromLocalStorage = JSON.parse(localStorage.getItem("task-list") || '[]
 const LocalTasksProvider = ({ children }) => {
   const { toggleSidebar } = useContext(sidebarContext);
   const [list, setList] = useState(listFromLocalStorage);
-  const [input, setInput] = useState("");
 
   useEffect(() => {
     localStorage.setItem("task-list", JSON.stringify(list))
@@ -34,9 +33,7 @@ const LocalTasksProvider = ({ children }) => {
   }
 
   const editTask = (id) => {
-
     const updatedList = list.map(list => {
-
       if (list.id === id) {
         return { ...list, isEditing: !list.isEditing }
       }
@@ -47,7 +44,6 @@ const LocalTasksProvider = ({ children }) => {
   }
 
   const editTaskContent = (id, title, desc) => {
-
     const editList = list.map(list => {
       if (list._id === id) {
         return {
@@ -63,8 +59,6 @@ const LocalTasksProvider = ({ children }) => {
   }
 
   const handleSetComplete = (id) => {
-    console.log("Got there", id);
-
     const updatedList = list.map(list => {
       if (list._id === id) {
         return { ...list, taskState: !list.taskState }
@@ -73,10 +67,9 @@ const LocalTasksProvider = ({ children }) => {
     })
 
     setList(updatedList);
-    console.log(updatedList);
   }
 
-  const value = { input, addItem, setInput, list, setList, deleteItem, handleSetComplete, editTask, editTaskContent }
+  const value = { list, addItem, setList, deleteItem, editTask, handleSetComplete, editTaskContent }
 
   return (
     <LocalTasksContext.Provider value={value}>

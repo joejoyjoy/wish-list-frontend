@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import App from './index'
 import useUser from '../../../hooks/useUser'
-import { Main } from '../../../ui/Main.styled'
+import Column from '../../../components/column'
+import { Main, Container } from '../../../ui/Main.styled'
 
 const HomeMain = () => {
   const { checkUser } = useUser()
@@ -13,7 +13,9 @@ const HomeMain = () => {
   return (
     <>
       <Main>
-        <App />
+        <Container>
+          <Column />
+        </Container>
       </Main>
     </>
   )

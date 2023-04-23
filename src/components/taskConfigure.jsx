@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useRef } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useForm } from 'react-hook-form'
+import useTask from '../hooks/useTask';
 import { TaskContext } from '../context/TasksProvider';
 import { LocalTasksContext } from '../context/localTasksProvider';
-import useTask from '../hooks/useTask';
-import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import { Section, Title, Date, Desc, Error } from '../ui/TaskConfigComponent.styled'
 import { Button } from '../ui/Button'

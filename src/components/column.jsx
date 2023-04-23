@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
-import useTask from '../hooks/useTask'
 import { useAuth0 } from '@auth0/auth0-react';
+import TaskConfigure from './taskConfigure';
+import useTask from '../hooks/useTask'
 import { TaskContext } from '../context/TasksProvider'
 import { LocalTasksContext } from '../context/localTasksProvider';
-import TaskConfigure from './taskConfigure';
-import styled from 'styled-components';
-import { FaCheckCircle } from "react-icons/fa"
 import { sidebarContext } from '../context/sidebarContext';
+import styled from 'styled-components';
 import { Button } from '../ui/Button';
 import { Container, Title } from '../ui/Column.styled'
 import { TaskContent, TaskStatus, NoTasks, TaskTitle, Date, Desc } from '../ui/TaskComponent.styled'
+import { FaCheckCircle } from "react-icons/fa"
 
 const TaskList = styled.div`
   position: relative;
