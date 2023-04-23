@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import TaskConfigure from './taskConfigure';
 import useTask from '../hooks/useTask'
@@ -46,6 +46,12 @@ const Column = () => {
     }
   }
 
+  useEffect(() => {
+    getTaskOfUser().then(data => {
+      setTasks(data)
+    })
+  }, [])
+  
   window.addEventListener('storage', () => {
     getTaskOfUser().then(data => {
       setTasks(data)
