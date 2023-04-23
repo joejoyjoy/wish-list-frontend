@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, useRef } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { TaskContext } from '../context/TasksProvider';
+import { LocalTasksContext } from '../context/localTasksProvider';
 import useTask from '../hooks/useTask';
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
@@ -16,18 +18,27 @@ const Form = styled.form`
 `;
 
 const TaskConfigure = () => {
+  const { user } = useAuth0()
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const { addTask, getTaskOfUser } = useTask()
   const { setTasks, setCreatingTasks } = useContext(TaskContext)
+  const { addItem } = useContext(LocalTasksContext)
 
   const today = new window.Date().toLocaleDateString('en-En', { year: 'numeric', month: 'long', day: 'numeric' })
 
   const onSubmit = async (data) => {
-    await addTask(data)
-    const tasks = await getTaskOfUser()
-    setTasks(tasks)
-    setCreatingTasks(false)
-    reset()
+    if (user) {
+      await addTask(data)
+      const tasks = await getTaskOfUser()
+      setTasks(tasks)
+      setCreatingTasks(false)
+      reset()
+    } else {
+      const {taskTitle, taskDesc, taskDate} = data;
+      addItem(taskTitle, taskDesc, taskDate)
+      setCreatingTasks(false)
+      reset()
+    }
   }
 
   let popperRef = useRef();

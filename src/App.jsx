@@ -2,6 +2,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import DataBaseProvider from './context/DataBaseProvider'
 import TasksProvider from './context/TasksProvider'
 import SidebarContextProvider from './context/sidebarContext'
+import LocalTasksProvider from './context/localTasksProvider'
 import { Home } from './pages'
 import { GlobalStyle } from './ui/GlobalStyles'
 
@@ -17,7 +18,9 @@ export const App = () => {
         <DataBaseProvider>
           <TasksProvider>
             <SidebarContextProvider>
-              <Home />
+              <LocalTasksProvider>
+                <Home />
+              </LocalTasksProvider>
             </SidebarContextProvider>
           </TasksProvider>
         </DataBaseProvider>

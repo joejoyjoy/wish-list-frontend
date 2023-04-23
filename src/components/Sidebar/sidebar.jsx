@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import useTask from '../../hooks/useTask';
 import { TaskContext } from '../../context/TasksProvider';
 import { sidebarContext } from '../../context/sidebarContext';
+import { LocalTasksContext } from '../../context/localTasksProvider';
 import GrayProfile from '../../assets/jpg/person-profile-gray.jpg'
 import styled from 'styled-components';
 import { Button, EditButton, DeleteButton, SaveButton } from '../../ui/Button';
@@ -143,9 +144,14 @@ const Sidebar = () => {
   const { deleteTask, changeTaskValue } = useTask()
   const { sidebar, toggleSidebar, sidebarData } = useContext(sidebarContext);
   const { tasks, setTasks, editingTasks, setEditingTasks } = useContext(TaskContext)
+  const { list, deleteItem, editTaskContent } = useContext(LocalTasksContext)
 
   const onDelete = async (id) => {
-    await deleteTask(id)
+    if (user) {
+      await deleteTask(id)
+    } else {
+      await deleteItem(id)
+    }
   }
 
   const handleClick = () => {
@@ -154,10 +160,26 @@ const Sidebar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const taskIdChanged = e.target[2].value;
-    const taskTitleChanged = e.target[0].value;
-    const taskDescChanged = e.target[1].value;
-    changeTaskValue(taskIdChanged, taskTitleChanged, taskDescChanged)
+
+    if (editingTasks) {
+      const taskIdChanged = e.target[2].value;
+      const taskTitleChanged = e.target[0].value;
+      const taskDescChanged = e.target[1].value;
+
+      if (user) {
+        changeTaskValue(taskIdChanged, taskTitleChanged, taskDescChanged)
+      } else {
+        editTaskContent(taskIdChanged, taskTitleChanged, taskDescChanged)
+      }
+    }
+  }
+
+  const item = () => {
+    if (user) {
+      return tasks;
+    } else {
+      return list
+    }
   }
 
   return (
@@ -165,7 +187,7 @@ const Sidebar = () => {
       {tasks ?
         <div>
           <Header>
-            {tasks.filter(task => task._id == sidebarData).map(item => (
+            {item().filter(task => task._id == sidebarData).map(item => (
               editingTasks ?
                 <input
                   form="changeTaskForm"
@@ -196,7 +218,7 @@ const Sidebar = () => {
               </Button>
             </div>
           </Header>
-          {tasks
+          {item()
             .filter(task => task._id == sidebarData)
             .map(item => (
               <Body key={item._id}>
@@ -207,7 +229,7 @@ const Sidebar = () => {
                 {editingTasks ?
                   <>
                     <textarea form="changeTaskForm" defaultValue={item.taskDesc} />
-                    <input form="changeTaskForm" type="hidden" value={item._id}/>
+                    <input form="changeTaskForm" type="hidden" value={item._id} />
                   </>
                   : <textarea disabled defaultValue={item.taskDesc} />}
               </Body>

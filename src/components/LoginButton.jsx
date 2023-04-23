@@ -6,8 +6,13 @@ import { IoIosLogIn } from "react-icons/io"
 export const LoginButton = () => {
   const { loginWithRedirect } = useAuth0()
 
+  const handleClick = () => {
+    window.localStorage.removeItem("task-list");
+    loginWithRedirect()
+  }
+
   return (
-    <Button onClick={() => loginWithRedirect()}>
+    <Button onClick={handleClick}>
       Login
       <IoIosLogIn size="1.2rem" />
     </Button>

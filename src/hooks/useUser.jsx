@@ -20,6 +20,7 @@ const useUser = () => {
       const data = await response.json()
 
       window.localStorage.setItem("userID", data.id)
+      window.dispatchEvent(new Event("storage"));
 
     } catch (error) {
       console.error(error);

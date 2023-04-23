@@ -9,7 +9,7 @@ const useTask = () => {
 
   const addTask = async ({ taskTitle, taskDate, taskDesc, taskState }) => {
     const userID = window.localStorage.getItem("userID")
-    if (!userID) return console.error("You are not logged in");
+    if (!userID) return console.error("addTask: You are not logged in");
 
     try {
       const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/create/${userID}`, {
@@ -29,7 +29,7 @@ const useTask = () => {
 
   const getTaskOfUser = async () => {
     const userID = window.localStorage.getItem("userID")
-    if (!userID) return console.error("You are not logged in");
+    if (!userID) return console.error("getTaskOfUser: You are not logged in");
 
     try {
       const response = await fetch(`${VITE_REACT_APP_SERVER_URL}/todo/${userID}`)

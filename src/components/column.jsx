@@ -1,6 +1,8 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import useTask from '../hooks/useTask'
+import { useAuth0 } from '@auth0/auth0-react';
 import { TaskContext } from '../context/TasksProvider'
+import { LocalTasksContext } from '../context/localTasksProvider';
 import TaskConfigure from './taskConfigure';
 import styled from 'styled-components';
 import { FaCheckCircle } from "react-icons/fa"
@@ -30,27 +32,41 @@ const TaskContainer = styled.div`
 `;
 
 const Column = () => {
+  const { user } = useAuth0()
   const { toggleSidebar } = useContext(sidebarContext);
   const { tasks, setTasks, creatingTasks } = useContext(TaskContext)
+  const { list, handleSetComplete } = useContext(LocalTasksContext)
   const { getTaskOfUser, changeTaskState } = useTask()
 
   const handleOnClick = (taskID, taskCurrentState) => {
-    changeTaskState(taskID, !taskCurrentState)
+    if (user) {
+      changeTaskState(taskID, !taskCurrentState)
+    } else {
+      handleSetComplete(taskID)
+    }
   }
 
-  useEffect(() => {
+  window.addEventListener('storage', () => {
     getTaskOfUser().then(data => {
       setTasks(data)
     })
-  }, [])
+  })
+
+  const item = () => {
+    if (user) {
+      return tasks;
+    } else {
+      return list
+    }
+  }
 
   return (
     <Container>
       <Title># All tasks</Title>
       <TaskList>
         {creatingTasks ? <TaskConfigure /> : null}
-        {tasks ?
-          tasks.slice(0).reverse().map(task => (
+        {item() ?
+          item().slice(0).reverse().map(task => (
             <TaskContainer key={task._id} background={task.taskState ? "#f3f3ed" : "#CFFF47"} >
               <TaskStatus>
                 <Button onClick={() => handleOnClick(task._id, task.taskState)}><FaCheckCircle fill={task.taskState ? "#419B45" : "gray"} /></Button>
@@ -63,14 +79,14 @@ const Column = () => {
 
             </TaskContainer>
           )) : null}
-        {tasks ?
-          tasks.length == 0 && creatingTasks == false ?
+        {item() ?
+          item().length == 0 && creatingTasks == false ?
             <NoTasks>
               There are no tasks yet!<br />
               Add one by the + button
             </NoTasks>
             : null
-        :null}
+          : null}
       </TaskList>
     </Container>
   );
