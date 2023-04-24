@@ -38,8 +38,10 @@ const Sidebar = () => {
 
       if (user) {
         changeTaskValue(taskIdChanged, taskTitleChanged, taskDescChanged)
+        toggleSidebar()
       } else {
         editTaskContent(taskIdChanged, taskTitleChanged, taskDescChanged)
+        toggleSidebar()
       }
     }
   }
@@ -58,21 +60,14 @@ const Sidebar = () => {
         <div>
           <Header>
             {item().filter(task => task._id == sidebarData).map(item => (
-              editingTasks ?
-                <input
-                  form="changeTaskForm"
-                  key={item._id}
-                  type="text"
-                  placeholder="Add a title"
-                  defaultValue={item.taskTitle}
-                ></input>
-                : <input
-                  key={item._id}
-                  type="text"
-                  placeholder="Add a title"
-                  defaultValue={item.taskTitle}
-                  disabled
-                ></input>
+              <input
+                form="changeTaskForm"
+                key={item._id}
+                type="text"
+                placeholder="Add a title"
+                defaultValue={item.taskTitle}
+                disabled={!editingTasks}
+              ></input>
             ))}
             <div>
               <EditButton
@@ -96,12 +91,8 @@ const Sidebar = () => {
                   <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
                   <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
                 </ProfileDetails>
-                {editingTasks ?
-                  <>
-                    <textarea form="changeTaskForm" defaultValue={item.taskDesc} />
-                    <input form="changeTaskForm" type="hidden" value={item._id} />
-                  </>
-                  : <textarea disabled defaultValue={item.taskDesc} />}
+                <textarea form="changeTaskForm" defaultValue={item.taskDesc} disabled={!editingTasks} />
+                <input form="changeTaskForm" type="hidden" value={item._id} />
               </Body>
             ))}
         </div>
