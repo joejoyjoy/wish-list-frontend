@@ -89,7 +89,7 @@ The system must provide the following functionalities:
           </sub>
         </a>
         <br />
-        <a href="#tools-dtpf" title="code-tools-maintenance-design">💻🔧🚧🎨</a>
+        <a href="#developer-joe" title="code-tools-maintenance-design">💻🔧🚧🎨</a>
       </td>
     </tr>
   </tbody>
