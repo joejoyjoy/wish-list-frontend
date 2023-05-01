@@ -145,7 +145,11 @@ export const Footer = styled.section`
   }
 
   @media only screen and (max-width: 500px)  {
-    padding-bottom: 50px;
+    padding-bottom: 60px;
+
+    & div {
+      justify-content: center;
+    }
   }
 `;
 
