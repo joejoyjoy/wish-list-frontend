@@ -30,6 +30,14 @@ export const TaskTitle = styled.a`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  @media only screen and (max-width: 400px)  {
+    width: 280px;
+  }
+
+  @media only screen and (max-width: 370px)  {
+    width: 260px;
+  }
 `;
 
 export const Date = styled.a`
