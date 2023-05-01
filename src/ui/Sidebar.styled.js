@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-/**** Sidebar ****/ 
+/**** Sidebar ****/
 export const Container = styled.div`
   position: fixed;
   display: flex;
@@ -76,6 +76,18 @@ export const Header = styled.header`
     }
   }
 
+  @media only screen and (max-width: 500px)  {
+    padding: 10px;
+
+    & input {
+      width: calc(100% - 105px);
+      padding: 2px;
+    }
+
+    & div {
+      gap: 5px;
+    }
+  }
 `;
 
 export const Body = styled.div`
@@ -106,6 +118,19 @@ export const Body = styled.div`
       box-shadow: none;
     }
   }
+
+  @media only screen and (max-width: 500px)  {
+    padding: 10px;
+
+    & textarea {
+      width: calc(100% - 10px);
+      padding: 2px;
+    }
+
+    & div {
+      gap: 5px;
+    }
+  }
 `;
 
 export const Footer = styled.section`
@@ -117,13 +142,10 @@ export const Footer = styled.section`
     display: flex;
     justify-content: right;
     gap: 20px;
-
   }
 
   @media only screen and (max-width: 500px)  {
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    padding-bottom: 50px;
   }
 `;
 
@@ -143,7 +165,7 @@ export const ProfileDetails = styled.div`
   }
 `;
 
-/**** Backdrop ****/ 
+/**** Backdrop ****/
 export const BackdropContainer = styled.div`
   position: fixed;
   top: 0;
