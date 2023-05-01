@@ -1,12 +1,13 @@
 `#master-in-software-engineering` `#assembler-institute-of-technology`
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-) <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-) <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" /> [![Netlify Status](https://api.netlify.com/api/v1/badges/47a7c356-f104-4348-9740-bc4234b53621/deploy-status)](https://app.netlify.com/sites/to-do-list-joe/deploys)
 
 > This project outlines the functional requirements of a to-do list management system that uses a backend server built with the Express framework. The system will provide users with a RESTful API for creating, retrieving, updating, and deleting tasks, which will be stored in a MongoDB database.
 
 ## Index <!-- omit in toc -->
 - [Installation](#installation)
 - [About the project](#about-the-project)
+- [Deploy version](#deploy-version)
 - [Contributors](#contributors-)
 
 ## Installation
@@ -73,6 +74,12 @@ The system provides the following functionalities:
 - User can sends a GET request to the server.
 - Server retrieves all tasks from the database that belong to the user.
 - Server responds with a 200 (OK) status code and the list of tasks.
+
+## Deploy version
+#### Just want to see the project in action?
+Good news! There is a deployed version available for everyone.
+Go to [to-do-list-joe.netlify.app](https://to-do-list-joe.netlify.app) and see the project in action!
+[![Netlify Status](https://api.netlify.com/api/v1/badges/47a7c356-f104-4348-9740-bc4234b53621/deploy-status)](https://app.netlify.com/sites/to-do-list-joe/deploys) 
 
 ## Contributors ✨
 
