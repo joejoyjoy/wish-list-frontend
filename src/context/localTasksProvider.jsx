@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import { v4 } from 'uuid';
 import { sidebarContext } from './sidebarContext';
+import { TaskContext } from './TasksProvider';
 
 export const LocalTasksContext = createContext()
 
@@ -8,6 +9,7 @@ const listFromLocalStorage = JSON.parse(localStorage.getItem("task-list") || '[]
 
 const LocalTasksProvider = ({ children }) => {
   const { toggleSidebar } = useContext(sidebarContext);
+  const { setEditingTasks } = useContext(TaskContext);
   const [list, setList] = useState(listFromLocalStorage);
 
   useEffect(() => {
@@ -30,6 +32,7 @@ const LocalTasksProvider = ({ children }) => {
     const newList = list.filter((item) => item._id !== id);
     setList(newList);
     toggleSidebar(false)
+    setEditingTasks(false)
   }
 
   const editTask = (id) => {

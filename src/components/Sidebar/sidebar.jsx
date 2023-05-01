@@ -38,9 +38,11 @@ const Sidebar = () => {
 
       if (user) {
         changeTaskValue(taskIdChanged, taskTitleChanged, taskDescChanged)
+        setEditingTasks(false)
         toggleSidebar()
       } else {
         editTaskContent(taskIdChanged, taskTitleChanged, taskDescChanged)
+        setEditingTasks(false)
         toggleSidebar()
       }
     }

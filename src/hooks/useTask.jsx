@@ -4,7 +4,7 @@ import { sidebarContext } from '../context/sidebarContext'
 
 const useTask = () => {
   const { VITE_REACT_APP_SERVER_URL } = import.meta.env
-  const { tasks, setTasks } = useContext(TaskContext)
+  const { tasks, setTasks, setEditingTasks } = useContext(TaskContext)
   const { toggleSidebar } = useContext(sidebarContext);
 
   const addTask = async ({ taskTitle, taskDate, taskDesc, taskState }) => {
@@ -73,7 +73,8 @@ const useTask = () => {
 
       const data = await response.json()
       setTasks(oldValues => { return oldValues.filter(task => task._id !== data._id) })
-      toggleSidebar()
+      toggleSidebar(false)
+      setEditingTasks(false)
 
     } catch (error) {
       console.error(error);

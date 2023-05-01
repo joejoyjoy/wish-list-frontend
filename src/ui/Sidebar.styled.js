@@ -119,6 +119,12 @@ export const Footer = styled.section`
     gap: 20px;
 
   }
+
+  @media only screen and (max-width: 500px)  {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
 `;
 
 export const ProfileDetails = styled.div`
