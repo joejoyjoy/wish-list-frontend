@@ -32,43 +32,45 @@
 
 ## About the project
 
-This document outlines the functional requirements of a to-do list management system that uses a backend server built with the Express framework. The system will provide users with a RESTful API for creating, retrieving, updating, and deleting tasks, which will be stored in a MongoDB database.
+This project has all functional requirements of a to-do list management system that uses a backend server built with the Express framework. The system will provide users with a RESTful API for creating, retrieving, updating, and deleting tasks, which will be stored in a MongoDB database. 
+> If your are not logged in, you will be able to use the to do list management system as normal. The only difference is there is no MongoDB connection but a LocalStorage connection with your browser so the tasks will be stored.
+<p float="left">
+  <img src="./src/assets/gif/GitHubToDoPreviewGif.gif" alt="To Do List preview" width="450px">
+</p>
 
-### Functional Requirements 📕
-The system must provide the following functionalities:
-
-
+### Functions 📕
+The system provides the following functionalities:
 
 #### 1. Create a task ✏️
-- User sends a POST request to the server with the task's title and description.
+- User can sends a POST request to the server with the task's title and description.
 - Server validates the request and creates the task in the database.
 - Server responds with a 201 (Created) status code and the new task's ID.
 
 #### 2. Retrieve a task 🔎
-- User sends a GET request to the server with the task's ID.
+- User can sends a GET request to the server with the task's ID.
 - Server retrieves the task from the database and verifies that it belongs to the user.
 - Server responds with a 200 (OK) status code and the task's details.
 
 #### 3. Update a task 📝
-- User sends a PUT request to the server with the task's ID and new data (title, description, or status).
+- User can sends a PUT request to the server with the task's ID and new data (title, description, or status).
 - Server retrieves the task from the database and verifies that it belongs to the user.
 - Server validates the request and updates the task in the database.
 - Server responds with a 200 (OK) status code and the updated task's details.
 
 #### 4. Delete a task 🧨
-- User sends a DELETE request to the server with the task's ID.
+- User can sends a DELETE request to the server with the task's ID.
 - Server retrieves the task from the database and verifies that it belongs to the user.
 - Server deletes the task from the database.
 - Server responds with a 204 (No Content) status code.
 
 #### 5. Complete a task ✅
-- User sends a PATCH request to the server with the task's ID and the status "completed".
+- User can sends a PATCH request to the server with the task's ID and the status "completed".
 - Server retrieves the task from the database and verifies that it belongs to the user and is not already completed.
 - Server updates the task's status in the database.
 - Server responds with a 200 (OK) status code and the completed task's details.
 
 #### 6. Retrieve all tasks 📇
-- User sends a GET request to the server.
+- User can sends a GET request to the server.
 - Server retrieves all tasks from the database that belong to the user.
 - Server responds with a 200 (OK) status code and the list of tasks.
 
