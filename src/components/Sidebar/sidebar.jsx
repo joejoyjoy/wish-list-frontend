@@ -60,16 +60,18 @@ const Sidebar = () => {
     <Container className={sidebar ? "sidebar--open" : ""}>
       <div>
         <Header>
-          {item().filter(task => task._id == sidebarData).map(item => (
-            <input
-              form="changeTaskForm"
-              key={item._id}
-              type="text"
-              placeholder="Add a title"
-              defaultValue={item.taskTitle}
-              disabled={!editingTasks}
-            ></input>
-          ))}
+          {item() ?
+            item().filter(task => task._id == sidebarData).map(item => (
+              <input
+                form="changeTaskForm"
+                key={item._id}
+                type="text"
+                placeholder="Add a title"
+                defaultValue={item.taskTitle}
+                disabled={!editingTasks}
+              ></input>
+            ))
+            : null}
           <div>
             <EditButton
               onClick={handleClick}
@@ -84,18 +86,20 @@ const Sidebar = () => {
             </Button>
           </div>
         </Header>
-        {item()
-          .filter(task => task._id == sidebarData)
-          .map(item => (
-            <Body key={item._id}>
-              <ProfileDetails>
-                <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
-                <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
-              </ProfileDetails>
-              <textarea form="changeTaskForm" defaultValue={item.taskDesc} disabled={!editingTasks} />
-              <input form="changeTaskForm" type="hidden" value={item._id} />
-            </Body>
-          ))}
+        {item() ?
+          item()
+            .filter(task => task._id == sidebarData)
+            .map(item => (
+              <Body key={item._id}>
+                <ProfileDetails>
+                  <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
+                  <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
+                </ProfileDetails>
+                <textarea form="changeTaskForm" defaultValue={item.taskDesc} disabled={!editingTasks} />
+                <input form="changeTaskForm" type="hidden" value={item._id} />
+              </Body>
+            ))
+          : null}
       </div>
       <Footer>
         <div>
