@@ -20,7 +20,7 @@ const HomeHeader = () => {
       <SectionProfile>
         <ProfileDetails>
           <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
-          Welcome back<span> {user ? user.given_name : 'User'}</span>
+          <span>Welcome back <b>{user ? user.given_name : 'User'}</b></span>
         </ProfileDetails>
         {user ? <LogoutButton /> : <LoginButton />}
       </SectionProfile>

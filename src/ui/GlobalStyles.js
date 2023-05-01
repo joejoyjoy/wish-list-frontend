@@ -19,8 +19,8 @@ html {
 body {
   -moz-user-select:none; /* firefox */
   -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE */
   user-select: none; /* Standard syntax */
+
   
   scrollbar-color: #676767 #424242;
   

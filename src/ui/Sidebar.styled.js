@@ -23,6 +23,11 @@ export const Container = styled.div`
   &.sidebar--open {
     transform: translateX(0%);
   }
+
+  @media only screen and (max-width: 500px)  {
+    min-width: 100%;
+    border-radius: 0;
+  }
 `;
 
 export const Header = styled.header`

@@ -6,6 +6,10 @@ export const Container = styled.div`
   max-width: 980px;
   margin: 0 auto;
   padding: 0 25px;
+
+  @media only screen and (max-width: 500px)  {
+    padding: 0 5px;
+  }
 `
 
 export const Loader = styled.div`

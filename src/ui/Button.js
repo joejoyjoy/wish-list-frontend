@@ -8,6 +8,10 @@ export const Button = styled.button`
   background: none;
   cursor: pointer;
   border: none;
+
+  @media only screen and (max-width: 500px)  {
+    gap: 4px;
+  }
 `;
 
 export const AddButton = styled(Button)`

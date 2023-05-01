@@ -56,47 +56,45 @@ const Sidebar = () => {
 
   return (
     <Container className={sidebar ? "sidebar--open" : ""}>
-      {tasks ?
-        <div>
-          <Header>
-            {item().filter(task => task._id == sidebarData).map(item => (
-              <input
-                form="changeTaskForm"
-                key={item._id}
-                type="text"
-                placeholder="Add a title"
-                defaultValue={item.taskTitle}
-                disabled={!editingTasks}
-              ></input>
-            ))}
-            <div>
-              <EditButton
-                onClick={handleClick}
-                editBtnBackground={editingTasks ? "#238636" : "#21262d"}
-                editBtnHover={editingTasks ? "#2ea043" : "#30363d"}
-                editBtnBorder={editingTasks ? "0" : "1px solid #f0f6fc19"}
-              >
-                {editingTasks ? "Undo" : "Edit"}
-              </EditButton>
-              <Button>
-                <TfiClose className="icon pointer" size="1.7rem" onClick={toggleSidebar} />
-              </Button>
-            </div>
-          </Header>
-          {item()
-            .filter(task => task._id == sidebarData)
-            .map(item => (
-              <Body key={item._id}>
-                <ProfileDetails>
-                  <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
-                  <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
-                </ProfileDetails>
-                <textarea form="changeTaskForm" defaultValue={item.taskDesc} disabled={!editingTasks} />
-                <input form="changeTaskForm" type="hidden" value={item._id} />
-              </Body>
-            ))}
-        </div>
-        : null}
+      <div>
+        <Header>
+          {item().filter(task => task._id == sidebarData).map(item => (
+            <input
+              form="changeTaskForm"
+              key={item._id}
+              type="text"
+              placeholder="Add a title"
+              defaultValue={item.taskTitle}
+              disabled={!editingTasks}
+            ></input>
+          ))}
+          <div>
+            <EditButton
+              onClick={handleClick}
+              editBtnBackground={editingTasks ? "#238636" : "#21262d"}
+              editBtnHover={editingTasks ? "#2ea043" : "#30363d"}
+              editBtnBorder={editingTasks ? "0" : "1px solid #f0f6fc19"}
+            >
+              {editingTasks ? "Undo" : "Edit"}
+            </EditButton>
+            <Button>
+              <TfiClose className="icon pointer" size="1.7rem" onClick={toggleSidebar} />
+            </Button>
+          </div>
+        </Header>
+        {item()
+          .filter(task => task._id == sidebarData)
+          .map(item => (
+            <Body key={item._id}>
+              <ProfileDetails>
+                <img src={user ? user.picture : GrayProfile} alt={user ? user.name : 'User Avatar'} />
+                <span> {user ? user.given_name : 'User'}</span> on {item.taskDate}
+              </ProfileDetails>
+              <textarea form="changeTaskForm" defaultValue={item.taskDesc} disabled={!editingTasks} />
+              <input form="changeTaskForm" type="hidden" value={item._id} />
+            </Body>
+          ))}
+      </div>
       <Footer>
         <div>
           <DeleteButton onClick={() => onDelete(sidebarData)}>DELETE TASK</DeleteButton>
