@@ -6,10 +6,13 @@ export const Section = styled.div`
   align-items: center;
 
   & svg {
+    stroke: black;
+    fill: black;
+    color: black;
     cursor: pointer;
 
     & path {
-    color: black;
+      color: black;
     }
   }
   
